@@ -1,6 +1,7 @@
 package com.plateer.ec1.order.controller;
 
 import com.plateer.ec1.order.service.OrderService;
+import com.plateer.ec1.order.vo.OrderProductView;
 import com.plateer.ec1.order.vo.OrderRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,8 +12,8 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    public void order(OrderRequest orderRequest){
-        orderService.order(orderRequest);
+    public void order(OrderRequest orderRequest, OrderProductView orderProductView){
+        orderService.order(orderRequest, orderProductView);
     }
 
 }

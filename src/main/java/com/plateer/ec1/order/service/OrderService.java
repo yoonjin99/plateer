@@ -7,6 +7,7 @@ import com.plateer.ec1.order.strategy.GeneralDataStrategy;
 import com.plateer.ec1.order.strategy.impl.AfterStrategy;
 import com.plateer.ec1.order.strategy.impl.DataStrategy;
 import com.plateer.ec1.order.validator.OrderValidator;
+import com.plateer.ec1.order.vo.OrderProductView;
 import com.plateer.ec1.order.vo.OrderRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,9 @@ public class OrderService {
     private final OrderHistoryService orderHistoryService;
     private final PaymentService paymentService;
 
-    public void order(OrderRequest orderRequest){
+    public void order(OrderRequest orderRequest, OrderProductView orderProductView){
         OrderContext orderContext = new OrderContext(orderHistoryService, paymentService);
-        orderContext.execute(this.getDataStrategy(orderRequest), this.getAfterStrategy(orderRequest), orderRequest);
+        orderContext.execute(this.getDataStrategy(orderRequest), this.getAfterStrategy(orderRequest), orderRequest, orderProductView);
     }
 
     private DataStrategy getDataStrategy(OrderRequest orderRequest){

@@ -7,4 +7,7 @@ public class OrderRequest {
     public String getSystemType(){
         return "FO";
     }
+    public String getOrderNo(){
+        return "O1";
+    }
 }

@@ -2,34 +2,37 @@ package com.plateer.ec1.order.validator;
 
 import com.plateer.ec1.order.vo.OrderDto;
 import com.plateer.ec1.order.vo.OrderRequest;
+import com.plateer.ec1.order.vo.OrderValidationDto;
 
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
-public enum OrderValidator implements Predicate<OrderDto> {
-    FO_GENERAL("FO_GENERAL", OrderCommonValidators.validateMaxPurchaseCount()),
-    BO_GENERAL("BO_GENERAL", OrderCommonValidators.validateMaxPurchaseCount().and(OrderTypeValidators.isEcouponOrderAbleProduct()));
-//    FO_ECOUPON("FO_ECOUPON", (orderdto) -> OrderCommonValidators.validateMaxPurchaseCount(orderdto).test(orderdto)),
-//    BO_ECOUPON("BO_ECOUPON", (orderdto) -> OrderCommonValidators.validateMaxPurchaseCount(orderdto).test(orderdto));
+public enum OrderValidator implements Predicate<OrderValidationDto> {
+    FO_GENERAL("FO", "general",OrderCommonValidators.validateMaxPurchaseCount()),
+    BO_GENERAL("BO", "general", OrderCommonValidators.validateMaxPurchaseCount().and(OrderTypeValidators.isEcouponOrderAbleProduct())),
+    FO_ECOUPON("FO", "ecoupon",OrderCommonValidators.validateMaxPurchaseCount()),
+    BO_ECOUPON("BO", "ecoupon", OrderCommonValidators.validateMaxPurchaseCount().and(OrderTypeValidators.isEcouponOrderAbleProduct()));
 
-    private String type;
-    private final Predicate<OrderDto> validCheck;
+    private String systemCode;
+    private String orderCode;
+    private final Predicate<OrderValidationDto> validCheck;
 
-    OrderValidator(String type, Predicate<OrderDto> validCheck){
-        this.type = type;
+    OrderValidator(String systemCode,String orderCode, Predicate<OrderValidationDto> validCheck){
+        this.systemCode = systemCode;
+        this.orderCode = orderCode;
         this.validCheck = validCheck;
     }
 
     @Override
-    public boolean test(OrderDto t) {
+    public boolean test(OrderValidationDto t) {
         return validCheck.test(t);
     }
 
-    public static boolean valid(OrderDto dto){
-        return false;
-    }
-
-    // 상수명 찾는 메소드
     public static OrderValidator get(OrderRequest orderRequest){
-        return null;
+        return Arrays.stream(OrderValidator.values())
+                    .filter((t) -> t.systemCode.equals(orderRequest.getSystemType()) && t.orderCode.equals(orderRequest.getOrderType()))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException(""));
     };
 }
