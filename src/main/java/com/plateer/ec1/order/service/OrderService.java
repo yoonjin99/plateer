@@ -1,30 +1,33 @@
 package com.plateer.ec1.order.service;
 
-import com.plateer.ec1.order.strategy.BoAfterStrategy;
-import com.plateer.ec1.order.strategy.EcouponDataStrategy;
-import com.plateer.ec1.order.strategy.FoAfterStrategy;
-import com.plateer.ec1.order.strategy.GeneralDataStrategy;
-import com.plateer.ec1.order.strategy.impl.AfterStrategy;
-import com.plateer.ec1.order.strategy.impl.DataStrategy;
-import com.plateer.ec1.order.validator.OrderValidator;
+import com.plateer.ec1.order.strategy.after.impl.BoAfterStrategy;
+import com.plateer.ec1.order.strategy.data.impl.EcouponDataStrategy;
+import com.plateer.ec1.order.strategy.after.impl.FoAfterStrategy;
+import com.plateer.ec1.order.strategy.data.impl.GeneralDataStrategy;
+import com.plateer.ec1.order.strategy.after.AfterStrategy;
+import com.plateer.ec1.order.strategy.data.DataStrategy;
 import com.plateer.ec1.order.vo.OrderProductView;
 import com.plateer.ec1.order.vo.OrderRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class OrderService {
 
     private final OrderHistoryService orderHistoryService;
     private final PaymentService paymentService;
 
-    public void order(OrderRequest orderRequest, OrderProductView orderProductView){
+    public void order(OrderRequest orderRequest){
+        log.info("-----------OrderService order start");
         OrderContext orderContext = new OrderContext(orderHistoryService, paymentService);
-        orderContext.execute(this.getDataStrategy(orderRequest), this.getAfterStrategy(orderRequest), orderRequest, orderProductView);
+        orderContext.execute(getDataStrategy(orderRequest), getAfterStrategy(orderRequest), orderRequest);
     }
 
     private DataStrategy getDataStrategy(OrderRequest orderRequest){
+        log.info("-----------GetDataStrategy start");
         DataStrategy dataStrategy = null;
         switch (orderRequest.getOrderType()){
             case "general":
@@ -38,6 +41,7 @@ public class OrderService {
     }
 
     private AfterStrategy getAfterStrategy(OrderRequest orderRequest){
+        log.info("-----------GetAfterStrategy start");
         AfterStrategy afterStrategy = null;
         switch (orderRequest.getSystemType()){
             case "FO":

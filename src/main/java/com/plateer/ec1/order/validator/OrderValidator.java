@@ -9,10 +9,10 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public enum OrderValidator implements Predicate<OrderValidationDto> {
-    FO_GENERAL("FO", "general",OrderCommonValidators.validateMaxPurchaseCount()),
-    BO_GENERAL("BO", "general", OrderCommonValidators.validateMaxPurchaseCount().and(OrderTypeValidators.isEcouponOrderAbleProduct())),
-    FO_ECOUPON("FO", "ecoupon",OrderCommonValidators.validateMaxPurchaseCount()),
-    BO_ECOUPON("BO", "ecoupon", OrderCommonValidators.validateMaxPurchaseCount().and(OrderTypeValidators.isEcouponOrderAbleProduct()));
+    FO_GENERAL("FO", "general", OrderCommonValidators.commonValidate().and(OrderTypeValidators.orderTypeValidation())),
+    BO_GENERAL("BO", "general", OrderCommonValidators.commonValidate().and(OrderTypeValidators.orderTypeValidation())),
+    FO_ECOUPON("FO", "ecoupon", OrderCommonValidators.commonValidate().and(OrderTypeValidators.orderTypeValidation())),
+    BO_ECOUPON("BO", "ecoupon", OrderCommonValidators.commonValidate().and(OrderTypeValidators.orderTypeValidation()));
 
     private String systemCode;
     private String orderCode;
