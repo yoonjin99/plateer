@@ -8,11 +8,6 @@ import java.util.function.Predicate;
 
 @Slf4j
 public class OrderCommonValidators {
-    public static Predicate<OrderValidationDto> commonValidate(){
-        return orderDto -> {
-            return validateMaxPurchaseCount().and(validateMinPurchaseCount()).test(orderDto);
-        };
-    }
 
     public static Predicate<OrderValidationDto> validateMaxPurchaseCount(){
         log.info("-------------------validateMaxPurchaseCount start");

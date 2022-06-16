@@ -10,17 +10,6 @@ import java.util.function.Predicate;
 @Slf4j
 public class OrderTypeValidators {
 
-    // 주문 유형별 유효성
-    public static Predicate<OrderValidationDto> orderTypeValidation(){
-        return orderDto -> {
-            if("general".equals(orderDto.getOrderType())){
-                return isGeneralOrderAbleProduct().and(generalDataValidation()).test(orderDto);
-            }else{
-                return isEcouponOrderAbleProduct().and(ecouponDataValidation()).test(orderDto);
-            }
-        };
-    }
-
     // 모바일 쿠폰 상품확인
     public static Predicate<OrderValidationDto> isEcouponOrderAbleProduct(){
         log.info("-------------------isEcouponOrderAbleProduct start");
