@@ -18,7 +18,7 @@ public class PaymentServiceFactory {
     }
 
     public PaymentService getPaymentService(PaymentType type){
-        log.debug("PaymentServiceFactory start");
+        log.info("-----------------PaymentServiceFactory start");
         return map.get(type);
     }
 }

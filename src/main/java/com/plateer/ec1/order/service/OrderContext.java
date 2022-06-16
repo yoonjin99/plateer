@@ -7,14 +7,20 @@ import com.plateer.ec1.order.vo.OrderDto;
 import com.plateer.ec1.order.vo.OrderProductView;
 import com.plateer.ec1.order.vo.OrderRequest;
 import com.plateer.ec1.order.vo.OrderValidationDto;
+import com.plateer.ec1.payment.factory.PaymentService;
+import com.plateer.ec1.payment.factory.PaymentType;
+import com.plateer.ec1.payment.service.PayService;
+import com.plateer.ec1.payment.vo.PayInfo;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Locale;
 
 @Slf4j
 public class OrderContext {
     private OrderHistoryService orderHistoryService;
-    private PaymentService paymentService;
+    private PayService paymentService;
 
-    OrderContext(OrderHistoryService orderHistoryService, PaymentService paymentService){
+    OrderContext(OrderHistoryService orderHistoryService, PayService paymentService){
         this.orderHistoryService = orderHistoryService;
         this.paymentService = paymentService;
     }
@@ -32,6 +38,9 @@ public class OrderContext {
             // 데이터 생성
             dto = dataStrategy.create(orderRequest, new OrderProductView());
             // 결제
+            PayInfo payInfo = new PayInfo();
+            payInfo.setPaymentType(PaymentType.valueOf(orderRequest.getPaymentType().toUpperCase(Locale.ROOT)));
+            paymentService.approve(payInfo);
             // 데이터 등록
             insertOrderData(dto);
             // 금액검증

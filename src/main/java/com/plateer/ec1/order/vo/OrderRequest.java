@@ -9,4 +9,5 @@ public class OrderRequest {
     private Long price;
     private String productId;
     private String orderNo;
+    private String paymentType;
 }

@@ -8,6 +8,8 @@ import com.plateer.ec1.order.strategy.after.AfterStrategy;
 import com.plateer.ec1.order.strategy.data.DataStrategy;
 import com.plateer.ec1.order.vo.OrderProductView;
 import com.plateer.ec1.order.vo.OrderRequest;
+import com.plateer.ec1.payment.factory.PaymentService;
+import com.plateer.ec1.payment.service.PayService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 
     private final OrderHistoryService orderHistoryService;
-    private final PaymentService paymentService;
+    private final PayService paymentService;
 
     public void order(OrderRequest orderRequest){
         log.info("-----------OrderService order start");
