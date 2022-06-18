@@ -18,11 +18,11 @@ import java.util.Locale;
 @Slf4j
 public class OrderContext {
     private OrderHistoryService orderHistoryService;
-    private PayService paymentService;
+    private PayService payService;
 
-    OrderContext(OrderHistoryService orderHistoryService, PayService paymentService){
+    OrderContext(OrderHistoryService orderHistoryService, PayService payService){
         this.orderHistoryService = orderHistoryService;
-        this.paymentService = paymentService;
+        this.payService = payService;
     }
 
     public void execute(DataStrategy dataStrategy, AfterStrategy afterStrategy, OrderRequest orderRequest){
@@ -34,13 +34,15 @@ public class OrderContext {
             // 유효성 검증
             OrderValidationDto validationDto = new OrderValidationDto();
             validationDto.setOrderType("general");
+            log.info("orderRequest : {}", orderRequest);
             OrderValidator.get(orderRequest).test(validationDto);
+
             // 데이터 생성
             dto = dataStrategy.create(orderRequest, new OrderProductView());
             // 결제
             PayInfo payInfo = new PayInfo();
             payInfo.setPaymentType(PaymentType.valueOf(orderRequest.getPaymentType().toUpperCase(Locale.ROOT)));
-            paymentService.approve(payInfo);
+            payService.approve(payInfo);
             // 데이터 등록
             insertOrderData(dto);
             // 금액검증
@@ -49,7 +51,7 @@ public class OrderContext {
             // 후처리
             afterStrategy.call(orderRequest, dto);
         }catch (Exception e){
-            log.error(e + "error");
+            log.error( "error : " + e);
         } finally {
             // 주문 모니터링 업데이트
             orderHistoryService.updateOrderHistory(historyNo, dto);

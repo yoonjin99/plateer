@@ -9,6 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 public class BoAfterStrategy implements AfterStrategy {
     @Override
     public void call(OrderRequest orderRequest, OrderDto orderDto) {
-        
+        log.info("BO 후처리 호출");
     }
 }

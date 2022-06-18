@@ -19,14 +19,99 @@ class OrderControllerTest {
     OrderService orderService;
 
     @Test
-    void order() {
-        log.info("--------------------Test 실행---------------------");
+    void orderFOGeneralInicis() {
+        log.info("--------------------FO일반 이니시스 결제 주문 실행---------------------");
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.setSystemType("FO");
         orderRequest.setOrderType("general");
         orderRequest.setOrderNo("O1");
         orderRequest.setPaymentType("inicis");
         orderService.order(orderRequest);
-        log.info("--------------------Test 종료---------------------");
+        log.info("--------------------FO일반 이니시스 결제 주문 종료---------------------");
     }
+
+    @Test
+    void orderBOGeneralInicis() {
+        log.info("--------------------BO일반 이니시스 결제 주문 실행---------------------");
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setSystemType("BO");
+        orderRequest.setOrderType("general");
+        orderRequest.setOrderNo("O1");
+        orderRequest.setPaymentType("inicis");
+        orderService.order(orderRequest);
+        log.info("--------------------BO일반 이니시스 결제 주문 종료---------------------");
+    }
+
+    @Test
+    void orderFOGeneralPoint() {
+        log.info("--------------------FO일반 포인트 결제 주문 실행---------------------");
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setSystemType("FO");
+        orderRequest.setOrderType("general");
+        orderRequest.setOrderNo("O1");
+        orderRequest.setPaymentType("point");
+        orderService.order(orderRequest);
+        log.info("--------------------FO일반 포인트 결제 주문 종료---------------------");
+    }
+
+    @Test
+    void orderBOGeneralPoint() {
+        log.info("--------------------BO일반 포인트 결제 주문 실행---------------------");
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setSystemType("BO");
+        orderRequest.setOrderType("general");
+        orderRequest.setOrderNo("O1");
+        orderRequest.setPaymentType("point");
+        orderService.order(orderRequest);
+        log.info("--------------------BO일반 포인트 결제 주문 종료---------------------");
+    }
+
+    @Test
+    void orderFOCouponInicis() {
+        log.info("--------------------FO쿠폰 이니시스 결제 주문 실행---------------------");
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setSystemType("FO");
+        orderRequest.setOrderType("ecoupon");
+        orderRequest.setOrderNo("O1");
+        orderRequest.setPaymentType("inicis");
+        orderService.order(orderRequest);
+        log.info("--------------------FO쿠폰 이니시스 결제 주문 종료---------------------");
+    }
+
+    @Test
+    void orderBOCouponInicis() {
+        log.info("--------------------BO쿠폰 이니시스 결제 주문 실행---------------------");
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setSystemType("BO");
+        orderRequest.setOrderType("ecoupon");
+        orderRequest.setOrderNo("O1");
+        orderRequest.setPaymentType("inicis");
+        orderService.order(orderRequest);
+        log.info("--------------------BO쿠폰 이니시스 결제 주문 종료---------------------");
+    }
+
+    @Test
+    void orderFOCouponPoint() {
+        log.info("--------------------FO쿠폰 포인트 결제 주문 실행---------------------");
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setSystemType("FO");
+        orderRequest.setOrderType("ecoupon");
+        orderRequest.setOrderNo("O1");
+        orderRequest.setPaymentType("point");
+        orderService.order(orderRequest);
+        log.info("--------------------FO쿠폰 포인트 결제 주문 종료---------------------");
+    }
+
+    @Test
+    void orderBOCouponPoint() {
+        log.info("--------------------BO쿠폰 포인트 결제 주문 실행---------------------");
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setSystemType("BO");
+        orderRequest.setOrderType("ecoupon");
+        orderRequest.setOrderNo("O1");
+        orderRequest.setPaymentType("point");
+        orderService.order(orderRequest);
+        log.info("--------------------BO쿠폰 포인트 결제 주문 종료---------------------");
+    }
+
 }

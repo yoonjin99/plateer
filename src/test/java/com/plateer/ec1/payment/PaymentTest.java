@@ -16,11 +16,20 @@ public class PaymentTest {
     public PayService payService;
 
     @Test
-    void payment(){
-        log.info("---------------payment test 실행---------------------");
+    void paymentInicis(){
+        log.info("---------------inicis 결제 실행---------------------");
         PayInfo info = new PayInfo();
         info.setPaymentType(PaymentType.INICIS);
         payService.approve(info);
-        log.info("---------------payment test 종료---------------------");
+        log.info("---------------inicis 결제 종료---------------------");
+    }
+
+    @Test
+    void paymentPoint(){
+        log.info("---------------point 결제 실행---------------------");
+        PayInfo info = new PayInfo();
+        info.setPaymentType(PaymentType.POINT);
+        payService.approve(info);
+        log.info("---------------point 결제 종료---------------------");
     }
 }

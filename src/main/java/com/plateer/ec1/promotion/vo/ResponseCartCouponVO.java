@@ -1,7 +1,10 @@
 package com.plateer.ec1.promotion.vo;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class ResponseCartCouponVO extends ResponseBaseVO{
-    public List<CouponProductVO> promotionProductList;
+    private List<CouponProductVO> promotionProductList;
 }

@@ -1,9 +1,12 @@
 package com.plateer.ec1.promotion.vo;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class ProductCouponVO {
-    public Product product;
-    public List<Promotion> promotionList;
-    public String maxBenefitYn;
+    private Product product;
+    private List<Promotion> promotionList;
+    private String maxBenefitYn;
 }

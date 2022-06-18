@@ -12,9 +12,9 @@ public class PaymentServiceFactory {
 
     private final Map<PaymentType, PaymentService> map = new HashMap();
 
-    public PaymentServiceFactory(Inicis inicis, Point point) {
+    public PaymentServiceFactory(Inicis inicis, PayPoint payPoint) {
         map.put(PaymentType.INICIS, inicis);
-        map.put(PaymentType.POINT, point);
+        map.put(PaymentType.POINT, payPoint);
     }
 
     public PaymentService getPaymentService(PaymentType type){

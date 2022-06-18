@@ -2,10 +2,7 @@ package com.plateer.ec1.payment.service;
 
 import com.plateer.ec1.payment.factory.PaymentService;
 import com.plateer.ec1.payment.factory.PaymentServiceFactory;
-import com.plateer.ec1.payment.vo.ApproveResVO;
-import com.plateer.ec1.payment.vo.CancelReqVO;
-import com.plateer.ec1.payment.vo.NetCancelReqVO;
-import com.plateer.ec1.payment.vo.PayInfo;
+import com.plateer.ec1.payment.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,10 +20,13 @@ public class PayService {
     }
 
     public void cancel(CancelReqVO cancelReqVO){
-
+        log.info("---------------PayService cancel start---------------------");
+        PaymentService paymentService = paymentServiceFactory.getPaymentService(cancelReqVO.getPaymentType());
+        OriginalOrder originalOrder = new OriginalOrder();
+        paymentService.cancelPay(originalOrder);
     }
 
     public void netCancel(NetCancelReqVO netCancelReqVO){
-
+        log.info("---------------PayService netCancel start---------------------");
     }
 }

@@ -1,7 +1,10 @@
 package com.plateer.ec1.promotion.vo;
 
+import lombok.Data;
+
+@Data
 public class Promotion {
-    public Long promotionNo;
-    public Long couponIssueNo;
-    public Long dcAmt;
+    private Long promotionNo;
+    private Long couponIssueNo;
+    private Long dcAmt;
 }

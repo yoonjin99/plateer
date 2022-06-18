@@ -35,7 +35,7 @@ public class OrderService {
             case "general":
                 dataStrategy = new GeneralDataStrategy();
                 break;
-            case "coupon":
+            case "ecoupon":
                 dataStrategy = new EcouponDataStrategy();
                 break;
         }

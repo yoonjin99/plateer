@@ -5,24 +5,32 @@ import com.plateer.ec1.promotion.vo.Promotion;
 import com.plateer.ec1.promotion.vo.RequestPromotionVO;
 import com.plateer.ec1.promotion.vo.ResponseBaseVO;
 import com.plateer.ec1.promotion.vo.ResponseProductCouponVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class ProductCouponCalculation implements Calculation {
     @Override
     public ResponseBaseVO getCalculationData(RequestPromotionVO vo) {
-        return null;
+        log.info("-------ProductCouponCalculation getCalculationData start");
+        Promotion promotion = getAvailablePromotionData(vo);
+        ResponseProductCouponVO productCouponVO = calculateDcAmt(vo, promotion);
+        return calculateMaxBenefit(productCouponVO);
     }
 
     private Promotion getAvailablePromotionData(RequestPromotionVO reqVO){
-        return null;
+        log.info("-------ProductCouponCalculation getAvailablePromotionData start");
+        return new Promotion();
     }
 
-    private ResponseProductCouponVO calculate(RequestPromotionVO vo, Promotion prm){
-        return null;
+    private ResponseProductCouponVO calculateDcAmt(RequestPromotionVO vo, Promotion prm){
+        log.info("-------ProductCouponCalculation calculate start");
+        return new ResponseProductCouponVO();
     }
 
     private ResponseProductCouponVO calculateMaxBenefit(ResponseProductCouponVO vo){
-        return null;
+        log.info("-------ProductCouponCalculation calculateMaxBenefit start");
+        return new ResponseProductCouponVO();
     }
 }

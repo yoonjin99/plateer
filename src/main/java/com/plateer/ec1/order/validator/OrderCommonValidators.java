@@ -9,18 +9,14 @@ import java.util.function.Predicate;
 @Slf4j
 public class OrderCommonValidators {
 
-    public static Predicate<OrderValidationDto> validateMaxPurchaseCount(){
-        log.info("-------------------validateMaxPurchaseCount start");
-        return orderDto -> {
-            return true;
-        };
-    }
+    public static Predicate<OrderValidationDto> validateMaxPurchaseCount = (dto) -> {
+        log.info("OrderCommonValidators.validateMaxPurchaseCount: {}", dto);
+        return true;
+    };
 
-    public static Predicate<OrderValidationDto> validateMinPurchaseCount(){
-        log.info("-------------------validateMinPurchaseCount start");
-        return orderDto -> {
-            return true;
-        };
-    }
+    public static Predicate<OrderValidationDto> validateMinPurchaseCount= (dto) -> {
+        log.info("OrderCommonValidators.validateMinPurchaseCount: {}", dto);
+        return true;
+    };
 
 }
