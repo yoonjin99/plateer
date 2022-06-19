@@ -5,11 +5,13 @@ import com.plateer.ec1.claim.processor.AcceptWithdrawalProcessor;
 import com.plateer.ec1.claim.processor.ClaimProcessor;
 import com.plateer.ec1.claim.processor.CompleteProcessor;
 import com.plateer.ec1.order.validator.OrderValidator;
+import lombok.AllArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
+@AllArgsConstructor
 public enum ClaimType {
     GCC(CompleteProcessor::getInstance, GeneralOrderCancelDataCreator::new, Arrays.asList(),Arrays.asList(), true, "","",Arrays.asList()),
     MCA(AcceptWithdrawalProcessor::getInstance, ECouponCancelAcceptDataCreator::new, Arrays.asList(),Arrays.asList(), true, "","",Arrays.asList()),
@@ -29,19 +31,8 @@ public enum ClaimType {
     private String orderStateCode;
     private List<String> deliveryCode;
 
-    ClaimType(Supplier<ClaimProcessor> claimProcessor, Supplier<ClaimDataCreator> claimDataCreator, List<String> validStatusList, List<String> productType, Boolean claimNoFlag, String claimCode, String orderStateCode, List<String> deliveryCode) {
-        this.claimProcessor = claimProcessor;
-        this.claimDataCreator = claimDataCreator;
-        this.validStatusList = validStatusList;
-        this.productType = productType;
-        this.claimNoFlag = claimNoFlag;
-        this.claimCode = claimCode;
-        this.orderStateCode = orderStateCode;
-        this.deliveryCode = deliveryCode;
-    }
-
     public static ClaimDataCreator findClaimDataCreator(String type){
-        return Arrays.stream(ClaimType.values())
+        return Arrays.stream(values())
                 .filter((t) -> t.name().equals(type))
                 .findFirst()
                 .map(claimType -> claimType.claimDataCreator.get())
@@ -49,7 +40,7 @@ public enum ClaimType {
     }
 
     public static ClaimProcessor findClaimProcessor(String type){
-        return Arrays.stream(ClaimType.values())
+        return Arrays.stream(values())
                 .filter((t) -> t.name().equals(type))
                 .findFirst()
                 .map(claimType -> claimType.claimProcessor.get())

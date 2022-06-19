@@ -15,7 +15,7 @@ public class ClaimService {
     private ClaimProcessor claimProcessor;
 
     public void claim(ClaimDto claimDto){
-        log.info("-------------ClaimService claim method 실행--------------");
+        log.info("-------------ClaimService claim method 실행--------------" + claimDto.getClaimType().name() + "----" + claimDto);
         claimProcessor = ClaimType.findClaimProcessor(claimDto.getClaimType().name());
         claimProcessor.doProcess(claimDto);
     }

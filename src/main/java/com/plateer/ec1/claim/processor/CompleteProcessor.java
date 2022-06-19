@@ -6,16 +6,16 @@ import com.plateer.ec1.claim.monitoring.MonitoringLogHelper;
 import com.plateer.ec1.claim.type.ClaimType;
 import com.plateer.ec1.claim.validator.ClaimValidator;
 import com.plateer.ec1.claim.vo.ClaimDto;
-import com.plateer.ec1.payment.factory.PaymentService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 @Component
 @Slf4j
-public class CompleteProcessor extends ClaimProcessor{
+public class CompleteProcessor extends ClaimProcessor {
 
     private final IFCallHelper ifCallHelper;
     private static CompleteProcessor completeProcessor;
@@ -23,18 +23,24 @@ public class CompleteProcessor extends ClaimProcessor{
     public CompleteProcessor(ClaimValidator claimValidator, MonitoringLogHelper monitoringLogHelper, IFCallHelper ifCallHelper) {
         super(claimValidator, monitoringLogHelper);
         this.ifCallHelper = ifCallHelper;
+        log.info(completeProcessor + "completeProcessor = null ? ");
+        completeProcessor = this;
+        log.info("생성자 실행 후 " + completeProcessor);
     }
 
     @PostConstruct
-    private void initialize() {
+    private void init() {
+        log.info("초기화 실행");
         completeProcessor = this;
     }
+
 
     public static CompleteProcessor getInstance() {
         return completeProcessor;
     }
 
     @Override
+    @EventListener
     public void doProcess(ClaimDto claimDto) {
         log.info("----------CompleteProcessor doProcess 실행--------");
         Long monitoringLog = null;
@@ -63,4 +69,5 @@ public class CompleteProcessor extends ClaimProcessor{
             updateLog(monitoringLog, claimNo);
         }
     }
+
 }

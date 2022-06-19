@@ -17,17 +17,20 @@ public class AcceptWithdrawalProcessor extends ClaimProcessor{
 
     private static AcceptWithdrawalProcessor acceptWithdrawalProcessor;
 
-    @PostConstruct
-    private void initialize() {
-        acceptWithdrawalProcessor = this;
-    }
+//    @PostConstruct
+//    private void init() {
+//        log.info("초기화 실행");
+//        acceptWithdrawalProcessor = this;
+//    }
 
     public static AcceptWithdrawalProcessor getInstance() {
         return acceptWithdrawalProcessor;
     }
 
+    // 생성자 주입 -
     public AcceptWithdrawalProcessor(ClaimValidator claimValidator, MonitoringLogHelper monitoringLogHelper) {
         super(claimValidator, monitoringLogHelper);
+        acceptWithdrawalProcessor = this;
     }
 
     @Override

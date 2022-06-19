@@ -1,10 +1,12 @@
 package com.plateer.ec1.claim.monitoring;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
+@Configuration
 public class MonitoringLogHelper {
 
     public Long insertMonitoringLog(String claimNo){
