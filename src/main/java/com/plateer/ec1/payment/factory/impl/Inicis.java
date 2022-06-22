@@ -1,5 +1,7 @@
-package com.plateer.ec1.payment.factory;
+package com.plateer.ec1.payment.factory.impl;
 
+import com.plateer.ec1.payment.factory.PaymentService;
+import com.plateer.ec1.payment.factory.PaymentType;
 import com.plateer.ec1.payment.vo.ApproveResVO;
 import com.plateer.ec1.payment.vo.NetCancelReqVO;
 import com.plateer.ec1.payment.vo.OriginalOrder;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class Inicis implements PaymentService{
+public class Inicis implements PaymentService {
 
     @Override
     public void validateAuth(PayInfo payInfo) {
@@ -30,5 +32,10 @@ public class Inicis implements PaymentService{
     @Override
     public void netCancel(NetCancelReqVO netCancelReqVO) {
         log.info("-----------------Inicis netCancel start");
+    }
+
+    @Override
+    public PaymentType getType() {
+        return PaymentType.INICIS;
     }
 }

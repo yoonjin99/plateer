@@ -12,25 +12,25 @@ public class OrderTypeValidators {
 
     // 모바일 쿠폰 상품확인
     public static Predicate<OrderValidationDto> isEcouponOrderAbleProduct= (dto) -> {
-        log.info("OrderTypeValidator.isEcouponOrderAbleProduct: {}", dto);
+        log.info("OrderTypeValidators 모바일 쿠폰 상품확인 : {}", dto);
         return true;
     };
 
     // 모바일 쿠폰 필수 데이터 확인
     public static Predicate<OrderValidationDto> ecouponDataValidation= (dto) -> {
-        log.info("OrderTypeValidator.ecouponDataValidation: {}", dto);
+        log.info("OrderTypeValidators 모바일 쿠폰 필수 데이터 확인: {}", dto);
         return true;
     };
 
     // 일반주문 상품확인
     public static Predicate<OrderValidationDto> isGeneralOrderAbleProduct = (dto) -> {
-        log.info("OrderTypeValidator.isGeneralOrderAbleProduct: {}", dto);
+        log.info("OrderTypeValidator 일반주문 상품확인: {}", dto);
         return true;
     };
 
     // 일반주문 필수 데이터 확인
     public static Predicate<OrderValidationDto> generalDataValidation = (dto) -> {
-        log.info("OrderTypeValidator.generalDataValidation: {}", dto);
+        log.info("OrderTypeValidator 일반주문 필수 데이터 확인: {}", dto);
         return true;
     };
 }

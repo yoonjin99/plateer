@@ -39,23 +39,31 @@ public class OrderContext {
             validationDto.setOrderType("general");
             log.info("orderRequest : {}", orderRequest);
             OrderValidator.get(orderRequest).test(validationDto);
+
             // 데이터 생성
             dto = dataStrategy.create(orderRequest, new OrderProductView());
+
             // 결제
             PayInfo payInfo = new PayInfo();
             payInfo.setPaymentType(PaymentType.valueOf(orderRequest.getPaymentType().toUpperCase(Locale.ROOT)));
             payService.approve(payInfo);
+
             // 데이터 등록
             insertOrderData(dto);
+
             // 금액검증
             amountValidation(orderRequest.getOrderNo());
+
             // 재고차감
+            deleteStock(dto);
+
             // FO일 경우 장바구니 사용처리
-            if(orderRequest.getSystemType().equals("FO")){
-                deleteCartData(dto);
-            }
+//            if(orderRequest.getSystemType().equals("FO")){
+//                deleteCartData(dto);
+//            }
             // 후처리
             afterStrategy.call(orderRequest, dto);
+
         }catch (Exception e){
             log.error( "error : " + e);
         } finally {
@@ -75,5 +83,9 @@ public class OrderContext {
 
     private void deleteCartData(OrderDto orderDto){
         log.info("-----------장바구니 사용처리");
+    }
+    
+    private void deleteStock(OrderDto orderDto){
+        log.info("-----------재고차감");
     }
 }

@@ -1,10 +1,7 @@
 package com.plateer.ec1.promotion.calculation.impl;
 
 import com.plateer.ec1.promotion.calculation.Calculation;
-import com.plateer.ec1.promotion.vo.Promotion;
-import com.plateer.ec1.promotion.vo.RequestPromotionVO;
-import com.plateer.ec1.promotion.vo.ResponseBaseVO;
-import com.plateer.ec1.promotion.vo.ResponseProductCouponVO;
+import com.plateer.ec1.promotion.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +14,11 @@ public class ProductCouponCalculation implements Calculation {
         Promotion promotion = getAvailablePromotionData(vo);
         ResponseProductCouponVO productCouponVO = calculateDcAmt(vo, promotion);
         return calculateMaxBenefit(productCouponVO);
+    }
+
+    @Override
+    public PromotionType getType() {
+        return PromotionType.productCoupon;
     }
 
     private Promotion getAvailablePromotionData(RequestPromotionVO reqVO){

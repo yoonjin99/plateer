@@ -1,10 +1,7 @@
 package com.plateer.ec1.promotion.calculation.impl;
 
 import com.plateer.ec1.promotion.calculation.Calculation;
-import com.plateer.ec1.promotion.vo.Promotion;
-import com.plateer.ec1.promotion.vo.RequestPromotionVO;
-import com.plateer.ec1.promotion.vo.ResponseBaseVO;
-import com.plateer.ec1.promotion.vo.ResponsePriceDcVO;
+import com.plateer.ec1.promotion.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +13,11 @@ public class PriceDiscountCalculation implements Calculation {
         log.info("-------PriceDiscountCalculation getCalculationData start");
         Promotion promotion = getAvailablePromotionData(vo);
         return calculateDcAmt(vo,promotion);
+    }
+
+    @Override
+    public PromotionType getType() {
+        return PromotionType.priceDiscount;
     }
 
     private Promotion getAvailablePromotionData(RequestPromotionVO vo){

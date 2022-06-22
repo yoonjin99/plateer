@@ -1,7 +1,7 @@
 package com.plateer.ec1.claim.processor;
 
-import com.plateer.ec1.claim.creator.ClaimDataCreator;
 import com.plateer.ec1.claim.monitoring.MonitoringLogHelper;
+import com.plateer.ec1.claim.type.ProcessorType;
 import com.plateer.ec1.claim.validator.ClaimValidator;
 import com.plateer.ec1.claim.vo.ClaimDto;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public abstract class ClaimProcessor {
+    public abstract ProcessorType getType();
+
     protected final ClaimValidator claimValidator;
     protected final MonitoringLogHelper monitoringLogHelper;
 

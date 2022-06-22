@@ -10,4 +10,5 @@ public interface PaymentService {
     public ApproveResVO approvePay(PayInfo payInfo);
     public void cancelPay(OriginalOrder originalOrder);
     public void netCancel(NetCancelReqVO netCancelReqVO);
+    PaymentType getType();
 }

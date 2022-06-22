@@ -1,5 +1,7 @@
-package com.plateer.ec1.payment.factory;
+package com.plateer.ec1.payment.factory.impl;
 
+import com.plateer.ec1.payment.factory.PaymentService;
+import com.plateer.ec1.payment.factory.PaymentType;
 import com.plateer.ec1.payment.vo.ApproveResVO;
 import com.plateer.ec1.payment.vo.NetCancelReqVO;
 import com.plateer.ec1.payment.vo.OriginalOrder;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class PayPoint implements PaymentService{
+public class PayPoint implements PaymentService {
 
     private final Point point;
 
@@ -34,4 +36,9 @@ public class PayPoint implements PaymentService{
 
     @Override
     public void netCancel(NetCancelReqVO netCancelReqVO) {}
+
+    @Override
+    public PaymentType getType() {
+        return PaymentType.POINT;
+    }
 }

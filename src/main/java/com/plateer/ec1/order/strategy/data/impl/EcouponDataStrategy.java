@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 public class EcouponDataStrategy implements DataStrategy {
     @Override
     public OrderDto create(OrderRequest orderRequest, OrderProductView orderProductView) {
-        log.info("-----------------EcouponDataStrategy create start-----------------");
+        log.info("-----------------ecoupon data create start-----------------");
         return null;
     }
 }

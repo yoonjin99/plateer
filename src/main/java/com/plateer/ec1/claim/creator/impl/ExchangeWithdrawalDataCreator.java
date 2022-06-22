@@ -1,10 +1,19 @@
-package com.plateer.ec1.claim.creator;
+package com.plateer.ec1.claim.creator.impl;
 
+import com.plateer.ec1.claim.creator.ClaimDataCreator;
 import com.plateer.ec1.claim.model.ClaimModel;
+import com.plateer.ec1.claim.type.ClaimType;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
-public class RetrunWithdrawalDataCreator extends ClaimDataCreator{
+@Component
+public class ExchangeWithdrawalDataCreator extends ClaimDataCreator {
+    @Override
+    public ClaimType getType() {
+        return ClaimType.EW;
+    }
+
     @Override
     public ClaimModel updateOrderBenefitData(ClaimModel claimModel) {
         log.info("주문 혜택 업데이트 데이터 생성---------");

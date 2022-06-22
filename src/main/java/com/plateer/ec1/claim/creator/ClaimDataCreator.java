@@ -1,11 +1,14 @@
 package com.plateer.ec1.claim.creator;
 
 import com.plateer.ec1.claim.model.ClaimModel;
+import com.plateer.ec1.claim.type.ClaimType;
 import com.plateer.ec1.claim.vo.ClaimDto;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class ClaimDataCreator {
+
+    public abstract ClaimType getType();
 
     public String getClaimNo(ClaimDto claimDto){
         return "C1";

@@ -1,42 +1,34 @@
-package com.plateer.ec1.claim.processor;
+package com.plateer.ec1.claim.processor.impl;
 
 import com.plateer.ec1.claim.creator.ClaimDataCreator;
+import com.plateer.ec1.claim.factory.DataCreatorFactory;
 import com.plateer.ec1.claim.model.ClaimModel;
 import com.plateer.ec1.claim.monitoring.MonitoringLogHelper;
-import com.plateer.ec1.claim.type.ClaimType;
+import com.plateer.ec1.claim.processor.ClaimProcessor;
+import com.plateer.ec1.claim.processor.IFCallHelper;
+import com.plateer.ec1.claim.type.ProcessorType;
 import com.plateer.ec1.claim.validator.ClaimValidator;
 import com.plateer.ec1.claim.vo.ClaimDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 @Component
 @Slf4j
 public class CompleteProcessor extends ClaimProcessor {
 
     private final IFCallHelper ifCallHelper;
-    private static CompleteProcessor completeProcessor;
+    private final DataCreatorFactory dataCreatorFactory;
 
-    public CompleteProcessor(ClaimValidator claimValidator, MonitoringLogHelper monitoringLogHelper, IFCallHelper ifCallHelper) {
+    public CompleteProcessor(ClaimValidator claimValidator, MonitoringLogHelper monitoringLogHelper, IFCallHelper ifCallHelper, DataCreatorFactory dataCreatorFactory) {
         super(claimValidator, monitoringLogHelper);
         this.ifCallHelper = ifCallHelper;
-        log.info(completeProcessor + "completeProcessor = null ? ");
-        completeProcessor = this;
-        log.info("생성자 실행 후 " + completeProcessor);
+        this.dataCreatorFactory = dataCreatorFactory;
     }
 
-    @PostConstruct
-    private void init() {
-        log.info("초기화 실행");
-        completeProcessor = this;
-    }
-
-
-    public static CompleteProcessor getInstance() {
-        return completeProcessor;
+    @Override
+    public ProcessorType getType() {
+        return ProcessorType.COMPLETE;
     }
 
     @Override
@@ -47,7 +39,7 @@ public class CompleteProcessor extends ClaimProcessor {
         String claimNo = "";
         try {
             // 데이터 생성
-            ClaimDataCreator claimDataCreator = ClaimType.findClaimDataCreator(claimDto.getClaimType().name());
+            ClaimDataCreator claimDataCreator = dataCreatorFactory.getClaimDataCreator(claimDto.getClaimType());
             // 클레임 번호 채번
             claimNo = claimDataCreator.getClaimNo(claimDto);
             // 주문 모니터링 로그 등록

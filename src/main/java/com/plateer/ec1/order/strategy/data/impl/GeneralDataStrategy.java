@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GeneralDataStrategy implements DataStrategy {
     @Override
     public OrderDto create(OrderRequest orderRequest, OrderProductView orderProductView) {
-        log.info("-----------------GeneralDataStrategy create start-----------------");
+        log.info("-----------------general data create start-----------------");
         return null;
     }
 }

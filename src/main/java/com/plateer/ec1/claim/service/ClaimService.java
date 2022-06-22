@@ -1,5 +1,7 @@
 package com.plateer.ec1.claim.service;
 
+import com.plateer.ec1.claim.factory.DataCreatorFactory;
+import com.plateer.ec1.claim.factory.ProcessorFactory;
 import com.plateer.ec1.claim.processor.ClaimProcessor;
 import com.plateer.ec1.claim.type.ClaimType;
 import com.plateer.ec1.claim.vo.ClaimDto;
@@ -12,11 +14,10 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ClaimService {
 
-    private ClaimProcessor claimProcessor;
+    private final ProcessorFactory processorFactory;
 
     public void claim(ClaimDto claimDto){
         log.info("-------------ClaimService claim method 실행--------------" + claimDto.getClaimType().name() + "----" + claimDto);
-        claimProcessor = ClaimType.findClaimProcessor(claimDto.getClaimType().name());
-        claimProcessor.doProcess(claimDto);
+        processorFactory.getClaimProcessor(claimDto.getClaimType().getProcessor()).doProcess(claimDto);
     }
 }
